@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FamaV – Business Consultant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lime: #c8e600;
+      --lime-dark: #a0b800;
+      --dark: #1a1a1a;
+      --nav-bg: #111;
+      --grey-bg: #b0b8b8;
+      --card-bg: #3a4550;
+      --text-dark: #1a2a2a;
+      --text-light: #f0f0f0;
+      --footer-bg: #2a3038;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--grey-bg);
+      color: var(--text-dark);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--nav-bg);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 52px;
+    }
+    .nav-lang {
+      display: flex; align-items: center; gap: .4rem;
+      color: #ccc; font-size: .85rem; cursor: pointer; user-select: none;
+    }
+    .nav-lang img { width: 20px; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--lime); text-decoration: none;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: .9rem;
+      letter-spacing: .05em; padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: border-color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { border-bottom-color: var(--lime); }
+
+    /* ── HERO ── */
+    #home {
+      height: 100vh; position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    .hero-slides { position: absolute; inset: 0; }
+    .hero-slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,0,0,.45);
+    }
+    .hero-slide:nth-child(1)::after {
+      background: rgba(0,0,0,.15);
+    }
+    .hero-slide:nth-child(1) {
+      background-image: url('logohome2.png');
+    }
+    .hero-slide:nth-child(2) {
+      background-image: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80');
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+    }
+    .hero-social { display: flex; gap: 1.4rem; margin-bottom: .5rem; }
+    .hero-social a { color: var(--lime); font-size: 1.4rem; transition: transform .2s; }
+    .hero-social a:hover { transform: scale(1.2); }
+    .hero-logo {
+      width: 130px; height: 130px; border-radius: 50%;
+      background: rgba(180,210,0,.18);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-logo.hero-logo-spacer { background: transparent; }
+    .hero-logo img { width: 90px; }
+    /* SVG fallback logo */
+    .logo-svg { width: 90px; height: 90px; }
+    .btn-scrivici {
+      background: var(--lime); color: #1a1a1a;
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .95rem; letter-spacing: .12em;
+      padding: .75rem 2.5rem; border-radius: 50px; border: none;
+      cursor: pointer; transition: background .2s, transform .15s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-scrivici:hover { background: var(--lime-dark); transform: scale(1.04); }
+    .hero-quote {
+      color: var(--lime); font-style: italic;
+      font-size: .95rem; max-width: 540px; line-height: 1.6;
+    }
+    .hero-quote strong { font-style: normal; display: block; margin-top: .3rem; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── CHI SIAMO ── */
+    #chi-siamo { background: var(--grey-bg); }
+    .chi-header { text-align: center; margin-bottom: 2.5rem; }
+    .chi-header h2 {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 1.6rem; letter-spacing: .15em; color: var(--text-dark); margin-bottom: .3rem;
+    }
+    .chi-header h3 {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 1.4rem; color: var(--text-dark);
+    }
+    .chi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .chi-text p { font-size: .97rem; line-height: 1.85; margin-bottom: 1.1rem; color: #222; text-align: justify; }
+    .chi-img-wrap { position: relative; }
+    .chi-img-wrap img { width: 100%; border-radius: 4px; display: block; }
+    .cta-phone {
+      display: block; margin-top: 1rem;
+      background: var(--lime); color: #1a1a1a;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .85rem;
+      letter-spacing: .08em; text-align: center; padding: .9rem 1rem;
+      text-decoration: none; border-radius: 2px; transition: background .2s;
+    }
+    .cta-phone:hover { background: var(--lime-dark); }
+    .chi-row2 { margin-top: 3rem; }
+    .chi-social-cta { text-align: center; margin-top: 1.5rem; font-size: .95rem; }
+    .chi-social-cta a { color: var(--lime-dark); font-weight: 600; }
+
+    /* ── SERVIZI ── */
+    #servizi { background: #a8b0b0; }
+    .servizi-title {
+      text-align: center; margin-bottom: 2.5rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 1.6rem; letter-spacing: .15em; color: var(--text-dark);
+    }
+    .servizi-title::after {
+      content: ''; display: block; margin: .6rem auto 0;
+      width: 60px; height: 3px; background: var(--lime);
+    }
+    .servizi-grid { display: flex; flex-direction: column; gap: 1.2rem; }
+    .servizio-card {
+      background: var(--card-bg); border-radius: 6px;
+      display: grid; grid-template-columns: 100px 1fr;
+      align-items: center; gap: 1.5rem; padding: 1.8rem;
+    }
+    .servizio-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      border: 2px solid var(--lime);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; color: var(--lime); justify-self: center;
+    }
+    .servizio-card h3 {
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-style: italic;
+      font-size: 1.15rem; color: var(--lime); margin-bottom: .6rem;
+    }
+    .servizio-card p { font-size: .92rem; line-height: 1.75; color: #dde; }
+    .servizi-img {
+      margin-top: 2rem; width: 100%; max-height: 260px;
+      object-fit: cover; border-radius: 4px; display: block;
+    }
+
+    /* ── CONTATTI ── */
+    #contatti { background: var(--grey-bg); }
+    .contatti-title {
+      text-align: center; margin-bottom: 2.5rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 1.5rem; letter-spacing: .2em; color: var(--text-dark);
+    }
+    .contatti-grid { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: start; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: .82rem; margin-bottom: .3rem; color: #333; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: .65rem .8rem;
+      background: transparent; border: 1px solid #888;
+      border-radius: 2px; font-size: .9rem; color: #111;
+      font-family: 'Open Sans', sans-serif;
+      transition: border-color .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--lime-dark);
+    }
+    .form-group textarea { height: 80px; resize: vertical; }
+    .btn-invia {
+      background: var(--lime); color: #1a1a1a;
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .9rem; letter-spacing: .1em;
+      padding: .75rem 2.2rem; border-radius: 50px; border: none;
+      cursor: pointer; transition: background .2s;
+    }
+    .btn-invia:hover { background: var(--lime-dark); }
+    .contatti-photo { width: 220px; border-radius: 8px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--footer-bg); color: #ccc;
+      text-align: center; padding: 2.5rem 1rem;
+    }
+    .footer-logo-wrap { margin-bottom: 1rem; }
+    .footer-logo-wrap img { width: 50px; opacity: .9; }
+    footer .brand {
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem;
+      color: var(--lime);
+    }
+    footer .brand span { font-weight: 400; color: #ccc; }
+    footer .tagline { font-size: .9rem; color: var(--lime); margin: .2rem 0; }
+    footer .piva { font-size: .8rem; color: #aaa; margin-top: .3rem; }
+    footer .copy { font-size: .75rem; color: #888; margin-top: .8rem; }
+
+    /* ── LANG HIDDEN ── */
+    [data-lang] { display: none !important; }
+    .it [data-lang="it"], .en [data-lang="en"] { display: inline !important; }
+    .it h2[data-lang="it"], .en h2[data-lang="en"],
+    .it h3[data-lang="it"], .en h3[data-lang="en"],
+    .it p[data-lang="it"], .en p[data-lang="en"],
+    .it label[data-lang="it"], .en label[data-lang="en"],
+    .it strong[data-lang="it"], .en strong[data-lang="en"] { display: block !important; }
+    .it a[data-lang="it"], .en a[data-lang="en"] { display: inline !important; }
+
+    /* ── DOVE SIAMO ── */
+    #dove-siamo { background: #a8b0b0; }
+    .dove-title {
+      text-align: center; margin-bottom: 2.5rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 1.6rem; letter-spacing: .15em; color: var(--text-dark);
+    }
+    .dove-title::after {
+      content: ''; display: block; margin: .6rem auto 0;
+      width: 60px; height: 3px; background: var(--lime);
+    }
+    .dove-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 2.5rem; align-items: start; }
+    .dove-info { font-size: .97rem; line-height: 1.9; }
+    .dove-info p { margin-bottom: .8rem; }
+    .dove-info strong { display: block; font-size: 1.1rem; margin-bottom: .6rem; color: var(--text-dark); }
+    .dove-map-wrap {
+      border-radius: 6px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      line-height: 0;
+    }
+    .dove-map-wrap iframe { width: 100%; height: 340px; border: 0; display: block; }
+
+    /* ── reCAPTCHA ── */
+    .recaptcha-box { margin: 1rem 0; }
+    .g-recaptcha { transform-origin: left top; }
+
+    /* ── HAMBURGER (mobile nav) ── */
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 4px;
+      background: none; border: none; cursor: pointer; padding: 8px;
+    }
+    .nav-toggle span { width: 22px; height: 2px; background: var(--lime); display: block; }
+
+    /* ── RESPONSIVE: TABLET ── */
+    @media (max-width: 1024px) {
+      .container { padding: 0 1.5rem; }
+      .chi-row, .dove-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .chi-row2 .chi-img-wrap { order: 2; }
+      .chi-row2 .chi-text { order: 1; }
+      .servizi-img { max-height: 220px; }
+      .dove-map-wrap iframe { height: 300px; }
+    }
+
+    /* ── RESPONSIVE: MOBILE ── */
+    @media (max-width: 700px) {
+      nav { padding: 0 1rem; flex-wrap: wrap; height: auto; min-height: 52px; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none; position: absolute; top: 52px; left: 0; right: 0;
+        background: var(--nav-bg); flex-direction: column; gap: 0;
+        text-align: center; padding: .5rem 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: .8rem 0; }
+
+      #home { height: 100vh; padding-top: 52px; }
+      .hero-logo { width: 100px; height: 100px; }
+      .logo-svg { width: 70px; height: 70px; }
+      .hero-quote { font-size: .85rem; padding: 0 1rem; max-width: 100%; }
+      .hero-social a { font-size: 1.2rem; }
+      .btn-scrivici { padding: .65rem 1.8rem; font-size: .85rem; }
+
+      section { padding: 3rem 0; }
+      .chi-header h2 { font-size: 1.25rem; }
+      .chi-header h3 { font-size: 1.1rem; }
+      .chi-text p { font-size: .92rem; text-align: left; }
+
+      .servizio-card { grid-template-columns: 1fr; text-align: center; padding: 1.4rem; }
+      .servizio-icon { justify-self: center; width: 60px; height: 60px; font-size: 1.5rem; }
+      .servizio-card h3 { font-size: 1.05rem; }
+      .servizio-card p { font-size: .88rem; }
+
+      .contatti-grid { grid-template-columns: 1fr; }
+      .contatti-photo { width: 100%; max-width: 240px; margin: 1.5rem auto 0; display: block; }
+      .dove-map-wrap iframe { height: 260px; }
+    }
+
+    @media (max-width: 420px) {
+      .hero-logo { width: 84px; height: 84px; }
+      .logo-svg { width: 58px; height: 58px; }
+      .servizi-title, .contatti-title, .dove-title { font-size: 1.1rem; letter-spacing: .08em; }
+    }
+  </style>
+</head>
+<body class="it">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-lang" onclick="toggleLang()">
+    <img id="flag" src="https://flagcdn.com/w20/it.png" alt="IT"/>
+    <span id="lang-label">Italiano ▾</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home"     data-lang="it">Home</a>       <a href="#home"     data-lang="en">Home</a></li>
+    <li><a href="#chi-siamo" data-lang="it">Chi Siamo</a> <a href="#chi-siamo" data-lang="en">About us</a></li>
+    <li><a href="#servizi"  data-lang="it">I Servizi</a>  <a href="#servizi"  data-lang="en">Services</a></li>
+    <li><a href="#contatti" data-lang="it">Contatti</a>   <a href="#contatti" data-lang="en">Contacts</a></li>
+    <li><a href="#dove-siamo" data-lang="it">Dove Siamo</a> <a href="#dove-siamo" data-lang="en">Where we are</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-slides">
+    <div class="hero-slide active"></div>
+    <div class="hero-slide"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-social">
+      <a href="#" aria-label="Facebook">&#xFB;</a>
+      <a href="https://www.instagram.com/famavanetti" target="_blank" aria-label="Instagram">&#x1F4F7;</a>
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="https://wa.me/393486706197" aria-label="WhatsApp">&#x1F4AC;</a>
+    </div>
+    <!-- Logo già presente nell'immagine di sfondo (logohome2.png): qui lasciamo solo lo spazio -->
+    <div class="hero-logo hero-logo-spacer"></div>
+    <a href="#contatti" class="btn-scrivici">
+      <span data-lang="it">SCRIVICI</span>
+      <span data-lang="en">WRITE US</span>
+    </a>
+    <p class="hero-quote">
+      <span data-lang="it">"Il successo non è definitivo, il fallimento non è fatale: ciò che conta è il coraggio di continuare.."<strong>Winston Churchill</strong></span>
+      <span data-lang="en">"Success is not final, failure is not fatal: it is the courage to continue that counts."<strong>Winston Churchill</strong></span>
+    </p>
+  </div>
+</section>
+
+<!-- CHI SIAMO -->
+<section id="chi-siamo">
+  <div class="container">
+    <div class="chi-header">
+      <h2>
+        <span data-lang="it">CHI SIAMO</span>
+        <span data-lang="en">WHO WE ARE</span>
+      </h2>
+      <h3>
+        <span data-lang="it">Informazioni su consulenza</span>
+        <span data-lang="en">Advice information</span>
+      </h3>
+    </div>
+
+    <div class="chi-row">
+      <div class="chi-text">
+        <p data-lang="it">Con oltre trent'anni di esperienza commerciale nel mondo dell'industria prima e del lusso internazionale poi, ci mettiamo a disposizione di chi vuole avviare o consolidare la sua attività wholesale sul mercato nazionale ed estero.</p>
+        <p data-lang="it">Avviare, estendere o diversificare la propria attività anche nei mercati esteri non è un'operazione facile: è necessario conoscere la storia, la cultura ed i costumi dei diversi paesi per calibrare le proprie scelte inserendosi in modo strategico tra le realtà già presenti.</p>
+        <p data-lang="it">Queste dinamiche sono alla base di una solida crescita delle imprese e FamaV, grazie a strategie di sviluppo studiate su misura ed alla profonda conoscenza dei diversi paesi sia dal punto di vista linguistico che sociale, individuerà le linee guida per la soluzione delle problematiche relative alle singole fasi di realizzazione dei progetti commerciali.</p>
+
+        <p data-lang="en">Famav with more than twentyfive years of commercial experience in the international luxury world, is ready to support those who wish to develop or consolidate their wholesale activity on international markets.</p>
+        <p data-lang="en">Extending and diversifying the business activities on a foreign market is not easy. You need to have the quite unique ability to read the history and culture of the different countries in order to better evaluate your choices regarding a new territorial context where to establish your company. Besides it is necessary to carefully pay attention to the already existing activities in the area.</p>
+        <p data-lang="en">These dynamics are the basis for a solid Company growth and Famav, thanks to the development of made to measure strategies and to a deep knowledge of the different countries both under the linguistic and social point of view, will identify the guide lines to the solution of the problems related to each project development step in the various commercial requests.</p>
+      </div>
+      <div class="chi-img-wrap">
+        <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&q=80" alt="Consulenza"/>
+        <a href="tel:+393486706197" class="cta-phone">
+          <span data-lang="it">HAI BISOGNO DI UNA CONSULENZA? &nbsp;+39 348 6706197</span>
+          <span data-lang="en">DO YOU NEED AN ADVICE ? &nbsp;+39 348 670 61 97</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="chi-row chi-row2">
+      <div class="chi-img-wrap">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="Team al lavoro"/>
+      </div>
+      <div class="chi-text">
+        <p data-lang="it">Entrare nei mercati esteri è uno degli obiettivi delle aziende consolidate sul territorio nazionale ma purtroppo spesso questa fase di crescita non viene gestita in modo corretto vanificando gli sforzi fatti e non portando al raggiungimento dei risultati sperati.</p>
+        <p data-lang="it">Per le start up il percorso è diverso e più articolato: la predisposizione di un piano strategico completo è fondamentale per lanciarsi in una nuova avventura.</p>
+        <p data-lang="it">FamaV, avendo una conoscenza a largo spettro dei mercati internazionali, può aiutarvi ad affrontare questo passo in maggiore sicurezza focalizzando le singole fasi di sviluppo.</p>
+
+        <p data-lang="en">Entering foreign markets is a goal for many established companies, yet this growth phase is often mismanaged, wasting effort and falling short of expected results.</p>
+        <p data-lang="en">For start-ups, the path is different and more complex: a complete strategic plan is essential before embarking on a new venture.</p>
+        <p data-lang="en">FamaV's broad knowledge of international markets helps you take this step with greater confidence, guiding each phase of your development.</p>
+
+        <p class="chi-social-cta">
+          <span data-lang="it">Se vi abbiamo incuriositi seguiteci su <a href="https://linkedin.com" target="_blank">LinkedIn</a> e su Instagram <a href="https://www.instagram.com/famavanetti" target="_blank">@famavanetti</a></span>
+          <span data-lang="en">Follow us on <a href="https://linkedin.com" target="_blank">LinkedIn</a> and on Instagram <a href="https://www.instagram.com/famavanetti" target="_blank">@famavanetti</a></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIZI -->
+<section id="servizi">
+  <div class="container">
+    <h2 class="servizi-title">
+      <span data-lang="it">I SERVIZI</span>
+      <span data-lang="en">SERVICES</span>
+    </h2>
+    <div class="servizi-grid">
+
+      <div class="servizio-card">
+        <div class="servizio-icon">&#x2753;</div>
+        <div>
+          <h3 data-lang="it">Consulenza strategica</h3>
+          <h3 data-lang="en">Strategic advice</h3>
+          <p data-lang="it">Oggi strategia significa più che mai definizione degli obiettivi e creazione di una struttura operativa efficace. Per questo stabiliamo con i nostri clienti il target commerciale ed il metodo per poterlo concretizzare guidando ed appoggiando il management delle aziende nello sviluppo di progetti destinati al mercato nazionale a quelli esteri.</p>
+          <p data-lang="en">In the current market situation strategy means more than ever the goal focusing and the creation of a valid operational structure. For this reason we determine with our customers the commercial target and the method to put it into practice driving and supporting the company management in the development of new projects aimed for the foreign markets.</p>
+        </div>
+      </div>
+
+      <div class="servizio-card">
+        <div class="servizio-icon">&#x2699;</div>
+        <div>
+          <h3 data-lang="it">Consulenza B2B</h3>
+          <h3 data-lang="en">B2B consultancy</h3>
+          <p data-lang="it">FamaV sviluppa nel B2B soluzioni strategiche ed operative per identificare i canali ed i clienti wholesale più mirati ed affidabili. Questo consente dopo un attento studio dei singoli mercati di delineare il business plan più efficace per raggiungere gli obiettivi del cliente ponendo l'accento sugli elementi caratterizzanti della sua azienda.</p>
+          <p data-lang="en">FamaV works in the B2B market developing strategic and practical solutions created to identify the most effective and reliable on line and off line wholesale channels. This allows, after a careful study, to define the most successful business plan for reaching the targets agreed upon with the customer by underlining the specific characteristics of the company. A deep knowledge of the foreign markets is fundamental for identifying the correct partner for the company growth in each single country and FamaV, thanks to its background, supports the customers in each phase of the attainment of the commonly agreed result.</p>
+        </div>
+      </div>
+
+      <div class="servizio-card">
+        <div class="servizio-icon">&#x1F310;</div>
+        <div>
+          <h3 data-lang="it">Consulenza commerciale</h3>
+          <h3 data-lang="en">Commercial advice</h3>
+          <p data-lang="it">Affianchiamo i nostri clienti sia attraverso la loro struttura commerciale esistente o coadiuvandoli nella creazione di una ex novo con l'obiettivo di potenziare o sviluppare la distribuzione wholesale. In particolare ci concentriamo per le start up e per le piccole/medie imprese sulla definizione di tecniche e strategie commerciali personalizzate.</p>
+          <p data-lang="en">We work side by side with the existing commercial structure or we actively cooperate to the creation of a new one with the aim to face new markets establishing and strengthening the supply or distribution wholesale relationships. In particular we know that start ups and middle or small size companies need to define in the best possible way the techniques and the commercial strategies to be able to have a strong structure on the international markets.</p>
+        </div>
+      </div>
+
+    </div>
+    <img class="servizi-img"
+      src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200&q=80"
+      alt="Business handshake"/>
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section id="contatti">
+  <div class="container">
+    <h2 class="contatti-title">
+      <span data-lang="it">CONTATTACI</span>
+      <span data-lang="en">CONTACT</span>
+    </h2>
+    <div class="contatti-grid">
+      <div>
+        <div class="form-group">
+          <label data-lang="it">Nome*</label>
+          <label data-lang="en">Name*</label>
+          <input type="text" name="nome" required/>
+        </div>
+        <div class="form-group">
+          <label data-lang="it">Cognome*</label>
+          <label data-lang="en">Surname*</label>
+          <input type="text" name="cognome" required/>
+        </div>
+        <div class="form-group">
+          <label data-lang="it">Telefono</label>
+          <label data-lang="en">Phone</label>
+          <input type="tel" name="telefono"/>
+        </div>
+        <div class="form-group">
+          <label data-lang="it">E-mail*</label>
+          <label data-lang="en">E-mail*</label>
+          <input type="email" name="email" required/>
+        </div>
+        <div class="form-group">
+          <label data-lang="it">Messaggio*</label>
+          <label data-lang="en">Message*</label>
+          <textarea name="messaggio" required></textarea>
+        </div>
+
+        <!--
+          reCAPTCHA: sostituisci YOUR_SITE_KEY_HERE con la tua Site Key
+          quando l'avrai creata su https://www.google.com/recaptcha/admin
+        -->
+        <div class="recaptcha-box">
+          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+        </div>
+
+        <button class="btn-invia" type="submit">
+          <span data-lang="it">INVIA</span>
+          <span data-lang="en">SEND</span>
+        </button>
+      </div>
+      <div>
+        <img class="contatti-photo"
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80"
+          alt="Consulente"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOVE SIAMO -->
+<section id="dove-siamo">
+  <div class="container">
+    <h2 class="dove-title">
+      <span data-lang="it">DOVE SIAMO</span>
+      <span data-lang="en">WHERE WE ARE</span>
+    </h2>
+    <div class="dove-grid">
+      <div class="dove-info">
+        <p>
+          <strong data-lang="it">Famav di Maria Alessandra Vanetti</strong>
+          <strong data-lang="en">Famav of Maria Alessandra Vanetti</strong>
+        </p>
+        <p data-lang="it">Via placeholder, 1<br/>20121 Milano (MI)<br/>Italia</p>
+        <p data-lang="en">Via placeholder, 1<br/>20121 Milan (MI)<br/>Italy</p>
+        <p>
+          <a href="tel:+393486706197" data-lang="it">Tel: +39 348 6706197</a>
+          <a href="tel:+393486706197" data-lang="en">Phone: +39 348 670 61 97</a>
+        </p>
+      </div>
+      <div class="dove-map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=Milano,Italia&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mappa sede Milano"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo-wrap">
+    <svg width="46" height="46" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="#3a4a20" opacity=".6"/>
+      <polygon points="50,10 88,50 50,90 12,50" fill="none" stroke="#c8e600" stroke-width="6"/>
+      <polygon points="50,24 76,50 50,76 24,50" fill="none" stroke="#c8e600" stroke-width="4"/>
+    </svg>
+  </div>
+  <div class="brand">Famav <span>di Maria Alessandra Vanetti</span></div>
+  <div class="tagline">business consultant</div>
+  <div class="piva">P.Iva IT03763290123</div>
+  <div class="copy">© 2026 &nbsp;Tutti i diritti riservati | Famav di Maria Alessandra Vanetti</div>
+</footer>
+
+<script>
+  // ── Mobile hamburger menu ──
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // ── Language toggle ──
+  let currentLang = 'it';
+  function toggleLang() {
+    currentLang = currentLang === 'it' ? 'en' : 'it';
+    document.body.className = currentLang;
+    document.getElementById('flag').src = currentLang === 'it'
+      ? 'https://flagcdn.com/w20/it.png'
+      : 'https://flagcdn.com/w20/gb.png';
+    document.getElementById('lang-label').textContent =
+      currentLang === 'it' ? 'Italiano ▾' : 'English ▾';
+    document.documentElement.lang = currentLang;
+  }
+
+  // ── Hero slideshow ──
+  const slides = document.querySelectorAll('.hero-slide');
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 5000);
+
+  // ── Active nav link on scroll ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinkAnchors = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let found = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) found = s.id;
+    });
+    navLinkAnchors.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + found);
+    });
+  });
+</script>
+</body>
+</html>
