@@ -228,7 +228,7 @@
     .it p[data-lang="it"], .en p[data-lang="en"],
     .it label[data-lang="it"], .en label[data-lang="en"],
     .it strong[data-lang="it"], .en strong[data-lang="en"] { display: block !important; }
-    .it a[data-lang="it"], .en a[data-lang="en"] { display: inline !important; }
+    .it a[data-lang="it"], .en a[data-lang="en"] { display: inline-block !important; }
 
     /* ── DOVE SIAMO ── */
     #dove-siamo { background: #a8b0b0; }
@@ -283,7 +283,7 @@
       }
       .nav-links.open { display: flex; }
       .nav-links li { width: 100%; }
-      .nav-links a { display: block; padding: .8rem 0; }
+      .nav-links a { display: inline-block; width: 100%; padding: .8rem 0; }
 
       #home { height: 100vh; padding-top: 52px; }
       .hero-logo { width: 100px; height: 100px; }
@@ -551,11 +551,11 @@
     <div class="dove-grid">
       <div class="dove-info">
         <p>
-          <strong data-lang="it">Famav di Maria Alessandra Vanetti</strong>
-          <strong data-lang="en">Famav of Maria Alessandra Vanetti</strong>
+          <strong data-lang="it">Maria Alessandra Vanetti</strong>
+          <strong data-lang="en">Maria Alessandra Vanetti</strong>
         </p>
-        <p data-lang="it">Via placeholder, 1<br/>20121 Milano (MI)<br/>Italia</p>
-        <p data-lang="en">Via placeholder, 1<br/>20121 Milan (MI)<br/>Italy</p>
+        <p data-lang="it">Viale Luigi Borri, 110<br/>21100 Varese (VA)<br/>Italia</p>
+        <p data-lang="en">Viale Luigi Borri, 110<br/>21100 Varese (VA)<br/>Italy</p>
         <p>
           <a href="tel:+393486706197" data-lang="it">Tel: +39 348 6706197</a>
           <a href="tel:+393486706197" data-lang="en">Phone: +39 348 670 61 97</a>
@@ -563,10 +563,10 @@
       </div>
       <div class="dove-map-wrap">
         <iframe
-          src="https://www.google.com/maps?q=Milano,Italia&output=embed"
+          src="https://www.google.com/maps?q=Viale+Luigi+Borri+110,+21100+Varese,+Italia&output=embed"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="Mappa sede Milano"></iframe>
+          title="Mappa sede Varese"></iframe>
       </div>
     </div>
   </div>
