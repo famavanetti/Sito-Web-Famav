@@ -192,32 +192,32 @@
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
     }
     .collab-card {
-      background: var(--card-bg); border-radius: 6px; padding: 2rem 1.5rem;
-      display: flex; flex-direction: column; align-items: center; text-align: center;
+      background: var(--card-bg); border-radius: 6px; padding: 1.6rem 1.5rem;
+      display: flex; flex-direction: column; text-align: left;
       position: relative; transition: transform .2s;
     }
     .collab-card:hover { transform: translateY(-4px); }
-    .collab-logo {
-      width: 110px; height: 110px; border-radius: 50%;
-      background: #fff; display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.2rem; overflow: hidden; border: 2px solid var(--lime);
+    .collab-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: .5rem; gap: .6rem;
     }
-    .collab-logo img { width: 80%; height: 80%; object-fit: contain; }
     .collab-name {
       font-family: 'Montserrat', sans-serif; font-weight: 700; font-style: italic;
-      font-size: 1.1rem; color: var(--lime); margin-bottom: .3rem;
+      font-size: 1.1rem; color: var(--lime);
     }
-    .collab-sector { font-size: .78rem; color: #9fb0b0; margin-bottom: .9rem; letter-spacing: .04em; text-transform: uppercase; }
-    .collab-desc { font-size: .88rem; line-height: 1.65; color: #dde; margin-bottom: 1.2rem; flex-grow: 1; }
+    .collab-sector { font-size: .78rem; color: #9fb0b0; margin-bottom: .8rem; letter-spacing: .04em; text-transform: uppercase; }
+    .collab-desc { font-size: .88rem; line-height: 1.65; color: #dde; margin-bottom: 1rem; }
     .collab-badge {
-      font-size: .72rem; font-weight: 700; letter-spacing: .05em;
-      padding: .25rem .8rem; border-radius: 50px; text-transform: uppercase;
+      font-size: .68rem; font-weight: 700; letter-spacing: .05em;
+      padding: .2rem .65rem; border-radius: 50px; text-transform: uppercase;
+      flex-shrink: 0;
     }
     .collab-badge.active { background: rgba(200,230,0,.15); color: var(--lime); border: 1px solid var(--lime); }
     .collab-badge.completed { background: rgba(255,255,255,.08); color: #aab; border: 1px solid #667; }
     .collab-link {
-      margin-top: .8rem; font-size: .82rem; color: var(--lime);
+      font-size: .82rem; color: var(--lime);
       text-decoration: none; border-bottom: 1px solid var(--lime); padding-bottom: 1px;
+      align-self: flex-start;
     }
     .collab-link:hover { color: var(--lime-dark); border-color: var(--lime-dark); }
 
@@ -695,12 +695,11 @@
 
       <!-- Food For Dogs -->
       <div class="collab-card">
-        <span class="collab-badge active" data-lang="it">In corso</span>
-        <span class="collab-badge active" data-lang="en">Ongoing</span>
-        <div class="collab-logo">
-          <img src="logo-foodfordogs.png" alt="Food For Dogs"/>
+        <div class="collab-head">
+          <div class="collab-name">Food For Dogs</div>
+          <span class="collab-badge active" data-lang="it">In corso</span>
+          <span class="collab-badge active" data-lang="en">Ongoing</span>
         </div>
-        <div class="collab-name">Food For Dogs</div>
         <div class="collab-sector" data-lang="it">Pet Hospitality</div>
         <div class="collab-sector" data-lang="en">Pet Hospitality</div>
         <p class="collab-desc" data-lang="it">Azienda specializzata in prodotti e servizi per l'accoglienza pet-friendly in hotel e strutture ricettive di alta gamma. Consulenza commerciale per lo sviluppo dei canali wholesale nel settore hôtellerie.</p>
@@ -711,12 +710,11 @@
 
       <!-- Il Salotto di Milano -->
       <div class="collab-card">
-        <span class="collab-badge completed" data-lang="it">Conclusa</span>
-        <span class="collab-badge completed" data-lang="en">Completed</span>
-        <div class="collab-logo">
-          <img src="logo-salottomilano.png" alt="Il Salotto di Milano"/>
+        <div class="collab-head">
+          <div class="collab-name">Il Salotto di Milano</div>
+          <span class="collab-badge completed" data-lang="it">Conclusa</span>
+          <span class="collab-badge completed" data-lang="en">Completed</span>
         </div>
-        <div class="collab-name">Il Salotto di Milano</div>
         <div class="collab-sector" data-lang="it">Spazio Eventi</div>
         <div class="collab-sector" data-lang="en">Event Venue</div>
         <p class="collab-desc" data-lang="it">Spazio eventi a Milano. Consulenza strategica e commerciale per il posizionamento e lo sviluppo del business.</p>
@@ -727,12 +725,11 @@
 
       <!-- Demarquet -->
       <div class="collab-card">
-        <span class="collab-badge completed" data-lang="it">Conclusa</span>
-        <span class="collab-badge completed" data-lang="en">Completed</span>
-        <div class="collab-logo">
-          <img src="logo-demarquet.png" alt="Demarquet"/>
+        <div class="collab-head">
+          <div class="collab-name">Demarquet</div>
+          <span class="collab-badge completed" data-lang="it">Conclusa</span>
+          <span class="collab-badge completed" data-lang="en">Completed</span>
         </div>
-        <div class="collab-name">Demarquet</div>
         <div class="collab-sector" data-lang="it">Pelletteria di lusso</div>
         <div class="collab-sector" data-lang="en">Luxury Leather Goods</div>
         <p class="collab-desc" data-lang="it">Brand internazionale di borse e pelletteria di lusso. Consulenza per lo sviluppo dei mercati esteri e della distribuzione wholesale.</p>
