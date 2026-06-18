@@ -230,6 +230,62 @@
     .it strong[data-lang="it"], .en strong[data-lang="en"] { display: block !important; }
     .it a[data-lang="it"], .en a[data-lang="en"] { display: inline-block !important; }
 
+    /* ── COOKIE BANNER ── */
+    #cookieOverlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      z-index: 4000; display: none; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    #cookieOverlay.visible { display: flex; }
+    #cookieBanner {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 4001;
+      background: #fff; color: #222;
+      box-shadow: 0 -4px 24px rgba(0,0,0,.25);
+      padding: 1.5rem 2rem; display: none;
+    }
+    #cookieBanner.visible { display: block; }
+    .cookie-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .cookie-text { flex: 1 1 420px; }
+    .cookie-text h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: .4rem; color: #1a1a1a; }
+    .cookie-text p { font-size: .85rem; line-height: 1.6; color: #444; }
+    .cookie-text a { color: #2a3a8a; }
+    .cookie-buttons { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .cookie-btn {
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .82rem;
+      padding: .6rem 1.2rem; border-radius: 4px; cursor: pointer;
+      letter-spacing: .03em; white-space: nowrap; border: 2px solid transparent;
+    }
+    .cookie-btn.accept-all { background: var(--lime); color: #1a1a1a; }
+    .cookie-btn.reject-all { background: #fff; color: #1a1a1a; border-color: #888; }
+    .cookie-btn.customize { background: #fff; color: #1a1a1a; border-color: var(--lime-dark); }
+
+    #cookieModal {
+      background: #fff; color: #222; border-radius: 8px;
+      width: 100%; max-width: 640px; max-height: 85vh; overflow-y: auto;
+      padding: 2rem;
+    }
+    #cookieModal h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: .8rem; }
+    #cookieModal > p { font-size: .88rem; line-height: 1.7; color: #444; margin-bottom: 1.4rem; }
+    .cookie-cat { border-top: 1px solid #ddd; padding: 1rem 0; }
+    .cookie-cat-head { display: flex; justify-content: space-between; align-items: center; }
+    .cookie-cat-head strong { font-family: 'Montserrat', sans-serif; font-size: .95rem; }
+    .cookie-cat-desc { font-size: .82rem; color: #555; line-height: 1.6; margin-top: .4rem; }
+    .cookie-always { font-size: .78rem; color: #2a7a2a; font-weight: 700; }
+    .switch { position: relative; display: inline-block; width: 42px; height: 24px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .switch-slider { position: absolute; inset: 0; background: #ccc; border-radius: 24px; cursor: pointer; transition: .2s; }
+    .switch-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .2s; }
+    .switch input:checked + .switch-slider { background: var(--lime-dark); }
+    .switch input:checked + .switch-slider::before { transform: translateX(18px); }
+    .switch input:disabled + .switch-slider { background: #9fc93a; cursor: not-allowed; }
+    #cookieModal .modal-buttons { display: flex; justify-content: flex-end; gap: .6rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+    @media (max-width: 700px) {
+      .cookie-row { flex-direction: column; align-items: stretch; }
+      .cookie-buttons { justify-content: stretch; }
+      .cookie-btn { flex: 1; text-align: center; }
+    }
+
     /* ── DOVE SIAMO ── */
     #dove-siamo { background: #a8b0b0; }
     .dove-title {
@@ -315,6 +371,94 @@
   </style>
 </head>
 <body class="it">
+
+<!-- ───────── COOKIE BANNER ───────── -->
+<div id="cookieBanner">
+  <div class="cookie-row">
+    <div class="cookie-text">
+      <h3 data-lang="it">Diamo valore alla tua privacy</h3>
+      <h3 data-lang="en">We value your privacy</h3>
+      <p data-lang="it">Utilizziamo cookie necessari al funzionamento del sito e, previo tuo consenso, cookie funzionali e analitici per migliorare la tua esperienza. Consulta la <a href="privacy.html">Privacy &amp; Cookie Policy</a> per maggiori dettagli.</p>
+      <p data-lang="en">We use cookies necessary for the website to function and, with your consent, functional and analytics cookies to improve your experience. See our <a href="privacy.html">Privacy &amp; Cookie Policy</a> for more details.</p>
+    </div>
+    <div class="cookie-buttons">
+      <button class="cookie-btn customize" onclick="openCookieModal()">
+        <span data-lang="it">Personalizza</span>
+        <span data-lang="en">Customize</span>
+      </button>
+      <button class="cookie-btn reject-all" onclick="cookieRejectAll()">
+        <span data-lang="it">Rifiuta tutto</span>
+        <span data-lang="en">Reject all</span>
+      </button>
+      <button class="cookie-btn accept-all" onclick="cookieAcceptAll()">
+        <span data-lang="it">Accetta tutti</span>
+        <span data-lang="en">Accept all</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ───────── COOKIE MODAL (personalizza) ───────── -->
+<div id="cookieOverlay">
+  <div id="cookieModal">
+    <h3 data-lang="it">Personalizza le preferenze di consenso</h3>
+    <h3 data-lang="en">Customize consent preferences</h3>
+    <p data-lang="it">Puoi scegliere quali categorie di cookie accettare. I cookie necessari sono sempre attivi perché indispensabili al funzionamento del sito.</p>
+    <p data-lang="en">You can choose which cookie categories to accept. Necessary cookies are always active because they are essential for the website to function.</p>
+
+    <div class="cookie-cat">
+      <div class="cookie-cat-head">
+        <strong data-lang="it">Necessari</strong>
+        <strong data-lang="en">Necessary</strong>
+        <span class="cookie-always" data-lang="it">Sempre attivi</span>
+        <span class="cookie-always" data-lang="en">Always active</span>
+      </div>
+      <p class="cookie-cat-desc" data-lang="it">Indispensabili per il funzionamento di base del sito (es. memorizzazione delle tue preferenze cookie). Non possono essere disattivati.</p>
+      <p class="cookie-cat-desc" data-lang="en">Essential for the basic functioning of the website (e.g. storing your cookie preferences). Cannot be disabled.</p>
+    </div>
+
+    <div class="cookie-cat">
+      <div class="cookie-cat-head">
+        <strong data-lang="it">Funzionali</strong>
+        <strong data-lang="en">Functional</strong>
+        <label class="switch">
+          <input type="checkbox" id="catFunzionali" checked/>
+          <span class="switch-slider"></span>
+        </label>
+      </div>
+      <p class="cookie-cat-desc" data-lang="it">Abilitano l'invio del modulo di contatto e la protezione anti-spam (Formspree, Google reCAPTCHA).</p>
+      <p class="cookie-cat-desc" data-lang="en">Enable the contact form submission and anti-spam protection (Formspree, Google reCAPTCHA).</p>
+    </div>
+
+    <div class="cookie-cat">
+      <div class="cookie-cat-head">
+        <strong data-lang="it">Analitici</strong>
+        <strong data-lang="en">Analytics</strong>
+        <label class="switch">
+          <input type="checkbox" id="catAnalitici"/>
+          <span class="switch-slider"></span>
+        </label>
+      </div>
+      <p class="cookie-cat-desc" data-lang="it">Raccolgono statistiche anonime di navigazione tramite Google Analytics, per aiutarci a migliorare il sito.</p>
+      <p class="cookie-cat-desc" data-lang="en">Collect anonymous browsing statistics via Google Analytics, to help us improve the website.</p>
+    </div>
+
+    <div class="modal-buttons">
+      <button class="cookie-btn reject-all" onclick="cookieRejectAll()">
+        <span data-lang="it">Rifiuta tutto</span>
+        <span data-lang="en">Reject all</span>
+      </button>
+      <button class="cookie-btn customize" onclick="cookieSavePreferences()">
+        <span data-lang="it">Salva le mie preferenze</span>
+        <span data-lang="en">Save my preferences</span>
+      </button>
+      <button class="cookie-btn accept-all" onclick="cookieAcceptAll()">
+        <span data-lang="it">Accetta tutti</span>
+        <span data-lang="en">Accept all</span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -585,9 +729,88 @@
   <div class="tagline">business consultant</div>
   <div class="piva">P.Iva IT03763290123</div>
   <div class="copy">© 2026 &nbsp;Tutti i diritti riservati | Famav di Maria Alessandra Vanetti</div>
+  <div class="copy" style="margin-top:.5rem;">
+    <a href="privacy.html" style="color:#aaa; text-decoration:underline;" data-lang="it">Privacy &amp; Cookie Policy</a>
+    <a href="privacy.html" style="color:#aaa; text-decoration:underline;" data-lang="en">Privacy &amp; Cookie Policy</a>
+    &nbsp;|&nbsp;
+    <a href="#" onclick="openCookieModal(); return false;" style="color:#aaa; text-decoration:underline;" data-lang="it">Gestisci preferenze cookie</a>
+    <a href="#" onclick="openCookieModal(); return false;" style="color:#aaa; text-decoration:underline;" data-lang="en">Manage cookie preferences</a>
+  </div>
 </footer>
 
 <script>
+  // ── COOKIE CONSENT ──
+  const COOKIE_KEY = 'famav_cookie_consent';
+
+  function getCookiePrefs() {
+    try {
+      const raw = localStorage.getItem(COOKIE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function saveCookiePrefs(prefs) {
+    localStorage.setItem(COOKIE_KEY, JSON.stringify(prefs));
+    applyCookiePrefs(prefs);
+    document.getElementById('cookieBanner').classList.remove('visible');
+    document.getElementById('cookieOverlay').classList.remove('visible');
+  }
+
+  function applyCookiePrefs(prefs) {
+    // Google Analytics si carica SOLO se l'utente ha acconsentito agli Analitici
+    if (prefs.analitici && !window.gaLoaded) {
+      loadGoogleAnalytics();
+    }
+  }
+
+  function loadGoogleAnalytics() {
+    window.gaLoaded = true;
+    // Sostituisci G-XXXXXXXXXX con il tuo ID di misurazione Google Analytics
+    const GA_ID = 'G-XXXXXXXXXX';
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(script);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  }
+
+  function cookieAcceptAll() {
+    saveCookiePrefs({ necessari: true, funzionali: true, analitici: true });
+  }
+
+  function cookieRejectAll() {
+    saveCookiePrefs({ necessari: true, funzionali: false, analitici: false });
+  }
+
+  function cookieSavePreferences() {
+    const funzionali = document.getElementById('catFunzionali').checked;
+    const analitici = document.getElementById('catAnalitici').checked;
+    saveCookiePrefs({ necessari: true, funzionali, analitici });
+  }
+
+  function openCookieModal() {
+    const prefs = getCookiePrefs();
+    if (prefs) {
+      document.getElementById('catFunzionali').checked = prefs.funzionali;
+      document.getElementById('catAnalitici').checked = prefs.analitici;
+    }
+    document.getElementById('cookieOverlay').classList.add('visible');
+  }
+
+  // Al caricamento: mostra banner solo se non c'è già un consenso salvato
+  (function initCookieBanner() {
+    const prefs = getCookiePrefs();
+    if (prefs) {
+      applyCookiePrefs(prefs);
+    } else {
+      document.getElementById('cookieBanner').classList.add('visible');
+    }
+  })();
+
   // ── Mobile hamburger menu ──
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
