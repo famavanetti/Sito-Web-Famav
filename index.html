@@ -240,6 +240,33 @@
     }
     .collab-link:hover { color: var(--lime-dark); border-color: var(--lime-dark); }
 
+    /* ── NETWORK ── */
+    #network { background: #a8b0b0; }
+    .network-title {
+      text-align: center; margin-bottom: 2.5rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 1.6rem; letter-spacing: .15em; color: var(--text-dark);
+    }
+    .network-title::after {
+      content: ''; display: block; margin: .6rem auto 0;
+      width: 60px; height: 3px; background: var(--lime);
+    }
+    .network-row {
+      display: flex; gap: 1.4rem; justify-content: center; flex-wrap: nowrap;
+    }
+    .network-item {
+      flex: 0 1 130px; min-width: 0; text-align: center;
+    }
+    .network-img-wrap {
+      width: 100%; aspect-ratio: 3 / 4.6; border-radius: 4px; overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,.18);
+    }
+    .network-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .network-city {
+      margin-top: .6rem; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .78rem; letter-spacing: .1em; color: #1a3a6a; text-transform: uppercase;
+    }
+
     /* ── CONTATTI ── */
     #contatti { background: var(--grey-bg); }
     .contatti-title {
@@ -380,6 +407,7 @@
       .servizi-img { max-height: 220px; }
       .dove-map-wrap iframe { height: 300px; }
       .collab-grid { grid-template-columns: 1fr; }
+      .network-item { flex: 0 1 110px; }
     }
 
     /* ── RESPONSIVE MOBILE ── */
@@ -407,6 +435,9 @@
       .servizio-icon { justify-self: center; width: 60px; height: 60px; font-size: 1.5rem; }
       .servizio-card h3 { font-size: 1.05rem; }
       .servizio-card p { font-size: .88rem; }
+      .network-row { gap: .4rem; }
+      .network-item { flex: 1 1 0; min-width: 0; }
+      .network-city { font-size: .6rem; letter-spacing: .04em; margin-top: .4rem; }
       .contatti-grid { grid-template-columns: 1fr; }
       .contatti-photo { width: 100%; max-width: 240px; margin: 1.5rem auto 0; display: block; }
       .dove-map-wrap iframe { height: 260px; }
@@ -419,7 +450,7 @@
     @media (max-width: 420px) {
       .hero-logo { width: 84px; height: 84px; }
       .logo-svg { width: 58px; height: 58px; }
-      .servizi-title, .contatti-title, .dove-title { font-size: 1.1rem; letter-spacing: .08em; }
+      .servizi-title, .contatti-title, .dove-title, .network-title { font-size: 1.1rem; letter-spacing: .08em; }
     }
   </style>
 </head>
@@ -592,6 +623,12 @@
       <a href="#collaborazioni" data-lang="en">Collaborations</a>
       <a href="#collaborazioni" data-lang="fr">Collaborations</a>
       <a href="#collaborazioni" data-lang="de">Zusammenarbeit</a>
+    </li>
+    <li>
+      <a href="#network" data-lang="it">Network</a>
+      <a href="#network" data-lang="en">Network</a>
+      <a href="#network" data-lang="fr">Réseau</a>
+      <a href="#network" data-lang="de">Netzwerk</a>
     </li>
     <li>
       <a href="#contatti" data-lang="it">Contatti</a>
@@ -1024,6 +1061,76 @@
         <a href="https://www.waterjug.net/" target="_blank" class="collab-link" data-lang="en">Visit website &rarr;</a>
         <a href="https://www.waterjug.net/" target="_blank" class="collab-link" data-lang="fr">Visiter le site &rarr;</a>
         <a href="https://www.waterjug.net/" target="_blank" class="collab-link" data-lang="de">Website besuchen &rarr;</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───────── NETWORK ───────── -->
+<section id="network">
+  <div class="container">
+    <h2 class="network-title">
+      <span data-lang="it">NETWORK</span>
+      <span data-lang="en">NETWORK</span>
+      <span data-lang="fr">RÉSEAU</span>
+      <span data-lang="de">NETZWERK</span>
+    </h2>
+    <div class="network-row">
+
+      <div class="network-item">
+        <div class="network-img-wrap">
+          <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400&q=80" alt="Roma"/>
+        </div>
+        <div class="network-city">Roma</div>
+      </div>
+
+      <div class="network-item">
+        <div class="network-img-wrap">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&q=80" alt="Parigi"/>
+        </div>
+        <div class="network-city">
+          <span data-lang="it">Parigi</span>
+          <span data-lang="en">Paris</span>
+          <span data-lang="fr">Paris</span>
+          <span data-lang="de">Paris</span>
+        </div>
+      </div>
+
+      <div class="network-item">
+        <div class="network-img-wrap">
+          <img src="https://images.unsplash.com/photo-1560930950-5cc20e80e392?w=400&q=80" alt="Berlino"/>
+        </div>
+        <div class="network-city">
+          <span data-lang="it">Berlino</span>
+          <span data-lang="en">Berlin</span>
+          <span data-lang="fr">Berlin</span>
+          <span data-lang="de">Berlin</span>
+        </div>
+      </div>
+
+      <div class="network-item">
+        <div class="network-img-wrap">
+          <img src="https://images.unsplash.com/photo-1574874375053-bf5051a061a2?w=400&q=80" alt="Zurigo"/>
+        </div>
+        <div class="network-city">
+          <span data-lang="it">Zurigo</span>
+          <span data-lang="en">Zurich</span>
+          <span data-lang="fr">Zurich</span>
+          <span data-lang="de">Zürich</span>
+        </div>
+      </div>
+
+      <div class="network-item">
+        <div class="network-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=400&q=80" alt="Vienna"/>
+        </div>
+        <div class="network-city">
+          <span data-lang="it">Vienna</span>
+          <span data-lang="en">Vienna</span>
+          <span data-lang="fr">Vienne</span>
+          <span data-lang="de">Wien</span>
+        </div>
       </div>
 
     </div>
