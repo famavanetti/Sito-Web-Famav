@@ -228,11 +228,11 @@
     .collab-sector { font-size: .78rem; color: #9fb0b0; margin-bottom: .8rem; letter-spacing: .04em; text-transform: uppercase; }
     .collab-desc { font-size: .88rem; line-height: 1.65; color: #dde; margin-bottom: 1rem; }
     .collab-badge {
-      font-size: .68rem; font-weight: 700; letter-spacing: .05em;
-      padding: .2rem .65rem; border-radius: 50px; text-transform: uppercase; flex-shrink: 0;
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+      display: inline-block;
     }
-    .collab-badge.active { background: rgba(200,230,0,.15); color: var(--lime); border: 1px solid var(--lime); }
-    .collab-badge.completed { background: rgba(255,255,255,.08); color: #aab; border: 1px solid #667; }
+    .collab-badge.active { background: var(--lime); box-shadow: 0 0 0 1px var(--lime); }
+    .collab-badge.completed { background: transparent; border: 1.5px solid #889; }
     .collab-link {
       font-size: .82rem; color: var(--lime);
       text-decoration: none; border-bottom: 1px solid var(--lime); padding-bottom: 1px;
@@ -860,10 +860,7 @@
       <div class="collab-card">
         <div class="collab-head">
           <div class="collab-name">Babled</div>
-          <span class="collab-badge active" data-lang="it">In corso</span>
-          <span class="collab-badge active" data-lang="en">Ongoing</span>
-          <span class="collab-badge active" data-lang="fr">En cours</span>
-          <span class="collab-badge active" data-lang="de">Laufend</span>
+          <span class="collab-badge active" title="In corso / Ongoing / En cours / Laufend"></span>
         </div>
         <div class="collab-sector" data-lang="it">Design di Arredo</div>
         <div class="collab-sector" data-lang="en">Furniture Design</div>
@@ -883,10 +880,7 @@
       <div class="collab-card">
         <div class="collab-head">
           <div class="collab-name">Esperta Field</div>
-          <span class="collab-badge active" data-lang="it">In corso</span>
-          <span class="collab-badge active" data-lang="en">Ongoing</span>
-          <span class="collab-badge active" data-lang="fr">En cours</span>
-          <span class="collab-badge active" data-lang="de">Laufend</span>
+          <span class="collab-badge active" title="In corso / Ongoing / En cours / Laufend"></span>
         </div>
         <div class="collab-sector" data-lang="it">Agritech / Precision Farming</div>
         <div class="collab-sector" data-lang="en">Agritech / Precision Farming</div>
@@ -906,10 +900,7 @@
       <div class="collab-card">
         <div class="collab-head">
           <div class="collab-name">Food For Dogs</div>
-          <span class="collab-badge active" data-lang="it">In corso</span>
-          <span class="collab-badge active" data-lang="en">Ongoing</span>
-          <span class="collab-badge active" data-lang="fr">En cours</span>
-          <span class="collab-badge active" data-lang="de">Laufend</span>
+          <span class="collab-badge active" title="In corso / Ongoing / En cours / Laufend"></span>
         </div>
         <div class="collab-sector" data-lang="it">Pet Hospitality</div>
         <div class="collab-sector" data-lang="en">Pet Hospitality</div>
@@ -929,10 +920,7 @@
       <div class="collab-card">
         <div class="collab-head">
           <div class="collab-name">Barbara Bui</div>
-          <span class="collab-badge completed" data-lang="it">Conclusa</span>
-          <span class="collab-badge completed" data-lang="en">Completed</span>
-          <span class="collab-badge completed" data-lang="fr">Terminée</span>
-          <span class="collab-badge completed" data-lang="de">Abgeschlossen</span>
+          <span class="collab-badge completed" title="Conclusa / Completed / Terminée / Abgeschlossen"></span>
         </div>
         <div class="collab-sector" data-lang="it">Moda Donna</div>
         <div class="collab-sector" data-lang="en">Women's Fashion</div>
@@ -952,10 +940,7 @@
       <div class="collab-card">
         <div class="collab-head">
           <div class="collab-name">Demarquet</div>
-          <span class="collab-badge completed" data-lang="it">Conclusa</span>
-          <span class="collab-badge completed" data-lang="en">Completed</span>
-          <span class="collab-badge completed" data-lang="fr">Terminée</span>
-          <span class="collab-badge completed" data-lang="de">Abgeschlossen</span>
+          <span class="collab-badge completed" title="Conclusa / Completed / Terminée / Abgeschlossen"></span>
         </div>
         <div class="collab-sector" data-lang="it">Pelletteria di Lusso</div>
         <div class="collab-sector" data-lang="en">Luxury Leather Goods</div>
@@ -975,10 +960,7 @@
       <div class="collab-card">
         <div class="collab-head">
           <div class="collab-name">Il Salotto di Milano</div>
-          <span class="collab-badge completed" data-lang="it">Conclusa</span>
-          <span class="collab-badge completed" data-lang="en">Completed</span>
-          <span class="collab-badge completed" data-lang="fr">Terminée</span>
-          <span class="collab-badge completed" data-lang="de">Abgeschlossen</span>
+          <span class="collab-badge completed" title="Conclusa / Completed / Terminée / Abgeschlossen"></span>
         </div>
         <div class="collab-sector" data-lang="it">Spazio Eventi</div>
         <div class="collab-sector" data-lang="en">Event Venue</div>
@@ -998,10 +980,7 @@
       <div class="collab-card">
         <div class="collab-head">
           <div class="collab-name">Lisa Marie Fernandez</div>
-          <span class="collab-badge completed" data-lang="it">Conclusa</span>
-          <span class="collab-badge completed" data-lang="en">Completed</span>
-          <span class="collab-badge completed" data-lang="fr">Terminée</span>
-          <span class="collab-badge completed" data-lang="de">Abgeschlossen</span>
+          <span class="collab-badge completed" title="Conclusa / Completed / Terminée / Abgeschlossen"></span>
         </div>
         <div class="collab-sector" data-lang="it">Moda Mare e Resort</div>
         <div class="collab-sector" data-lang="en">Swimwear &amp; Resort</div>
@@ -1021,10 +1000,7 @@
       <div class="collab-card">
         <div class="collab-head">
           <div class="collab-name">Simonetta Ravizza</div>
-          <span class="collab-badge completed" data-lang="it">Conclusa</span>
-          <span class="collab-badge completed" data-lang="en">Completed</span>
-          <span class="collab-badge completed" data-lang="fr">Terminée</span>
-          <span class="collab-badge completed" data-lang="de">Abgeschlossen</span>
+          <span class="collab-badge completed" title="Conclusa / Completed / Terminée / Abgeschlossen"></span>
         </div>
         <div class="collab-sector" data-lang="it">Pellicce e Outerwear di Lusso</div>
         <div class="collab-sector" data-lang="en">Luxury Furs &amp; Outerwear</div>
@@ -1040,14 +1016,11 @@
         <a href="https://simonettaravizza.com/" target="_blank" class="collab-link" data-lang="de">Website besuchen &rarr;</a>
       </div>
 
-      <!-- WaterJug -->
+      <!-- Water Jug -->
       <div class="collab-card">
         <div class="collab-head">
-          <div class="collab-name">WaterJug</div>
-          <span class="collab-badge completed" data-lang="it">Conclusa</span>
-          <span class="collab-badge completed" data-lang="en">Completed</span>
-          <span class="collab-badge completed" data-lang="fr">Terminée</span>
-          <span class="collab-badge completed" data-lang="de">Abgeschlossen</span>
+          <div class="collab-name">Water Jug</div>
+          <span class="collab-badge completed" title="Conclusa / Completed / Terminée / Abgeschlossen"></span>
         </div>
         <div class="collab-sector" data-lang="it">Design di Prodotto / Lifestyle</div>
         <div class="collab-sector" data-lang="en">Product Design / Lifestyle</div>
@@ -1080,7 +1053,7 @@
 
       <div class="network-item">
         <div class="network-img-wrap">
-          <img src="https://images.unsplash.com/photo-1567760855784-589f09ed5dc6?w=400&q=80" alt="Milano"/>
+          <img src="https://images.unsplash.com/photo-1554366347-897a5113f6ab?w=400&q=80" alt="Milano"/>
         </div>
         <div class="network-city">Milano</div>
       </div>
