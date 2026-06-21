@@ -27,6 +27,10 @@
       font-family: 'Open Sans', sans-serif;
       background: var(--grey-bg);
       color: var(--text-dark);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     /* ── NAV ── */
@@ -1356,6 +1360,28 @@
     let found = '';
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) found = s.id; });
     navLinkAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + found));
+  });
+
+  // ── Protezione contenuti (deterrente, non protezione assoluta) ──
+  // Disabilita click destro
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+  });
+  // Disabilita selezione testo
+  document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+    return false;
+  });
+  // Disabilita copia con Ctrl+C / Cmd+C
+  document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    return false;
+  });
+  // Disabilita drag delle immagini
+  document.addEventListener('dragstart', function(e) {
+    e.preventDefault();
+    return false;
   });
 </script>
 </body>
